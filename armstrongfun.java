@@ -1,45 +1,47 @@
 import java.util.Scanner;
 
-public class armstrongfun {
-    static int pow(int n, int p) {
-        if (n == 0 || p == 0) {
-            return 1;
+public class armstrongfun{
+    static int numlenght(int x) {
+        int lennum = x;
+        int c = 0;
+        while (lennum != 0) {
+            lennum /= 10;
+            c++;
         }
-        return n * pow(n, p - 1);
+        return c;
     }
 
-    static int length(int n) {
-        int count = 0;
-        while (n > 0) {
-            n /= 10;
-            count++;
+    static int findpower(int b, int e) {
+        int z = 1;
+        for (int i = 1; i <= e; i++) {
+            z *= b;
         }
-
-        return count;
+        return z;
     }
 
-    static boolean isArmstrong(int n) {
-        int len = length(n), sum = 0, org = n;
-
-        while (n > 0) {
-            sum += pow(n % 10, len);
-            n /= 10;
+    static int isarmstrong(int num1) {
+        int copy = num1;
+        int numlenght1 = numlenght(copy);
+        int sum = 0;
+        while (num1 != 0) {
+            int lastdigit = num1 % 10;
+            sum += findpower(lastdigit, numlenght1);
+            num1 /= 10;
         }
-
-        return org == sum;
+        return sum;
     }
 
     public static void main(String[] args) {
-        int n;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter any Number: ");
-        n = sc.nextInt();
-        sc.close();
-
-        if (isArmstrong(n)) {
-            System.out.println(n + " is Armstorng");
+        System.out.println("Enter any number ");
+        int number = sc.nextInt();
+        // calling the fuction to check number is armstrong or not
+        int armstrongvalue = isarmstrong(number);
+        if (number == armstrongvalue) {
+            System.out.println("Given NUmber is Armstrong");
         } else {
-            System.out.println(n + " is Not Armstorng");
+            System.out.println("Given is niot a armstrong");
         }
+        sc.close();
     }
 }
